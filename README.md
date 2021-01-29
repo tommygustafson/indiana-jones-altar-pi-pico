@@ -1,5 +1,6 @@
 # Indiana Jones - Fertility Idol Altar
 This is the code that connects the PN532 RFID reader, activates the linear actuator and can also communicate with other devices with ESP322 radio
 
-Adding details here to see if shows up on pi's
+Pi zero -> runs altar.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with ESP322 radio
+Pi 3 -> runs listen-act.py, which receives the RFID key tag string via ESP322 and can then act based on this tag
 
