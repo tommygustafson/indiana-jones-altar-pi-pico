@@ -200,4 +200,4 @@ while True:
     #print("Found card with UID:", [hex(i) for i in uid])
     #print("Found card with UID in str:", [str(i) for i in uid])
     prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
-    time.sleep(0.2)
+    time.sleep(0.25)
