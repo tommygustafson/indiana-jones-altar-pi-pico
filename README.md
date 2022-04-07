@@ -7,3 +7,5 @@ This is the code that connects the PN532 RFID reader, activates the linear actua
 - Git commit -am “commit notes”
 - Git push origin main   # pushes changes on pi’s to GitHub
 - Git pull origin main  # pulls or gets files from Github to pi
+
+- BIG CHANGES!!!!!
