@@ -16,10 +16,12 @@ csn = dio.DigitalInOut(board.D5)
 
 # using board.SPI() automatically selects the MCU's
 # available SPI pins, board.SCK, board.MOSI, board.MISO
+print("Initiating SPI")
 spi = board.SPI()  # init spi bus object
 
 # we'll be using the dynamic payload size feature (enabled by default)
 # initialize the nRF24L01 on the spi bus object
+print("Initiating nrf24 for wireless receiving")
 nrf = RF24(spi, csn, ce)
 
 # set the Power Amplifier level to -12 dBm since this test example is
@@ -56,7 +58,7 @@ while listen:
         print("Received: {}, Raw: {}".format(buffer[0], rx))
         start = time.monotonic()  
     time.sleep(0.25)
-    print(".",end='')      
+    #print(".",end='')      
 
     # recommended behavior is to keep in TX mode while idle
 nrf.listen = False  # put the nRF24L01 is in TX mode
