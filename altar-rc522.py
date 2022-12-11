@@ -1,34 +1,51 @@
-'''
-Code example
-https://circuitpython.readthedocs.io/projects/pn532/en/latest/examples.html
-'''
+"""
+  Interface RFid RC522 Reader using Maker Pi Pico and CircuitPython
+  
+  Items:
+  – Maker Pi Pico
+    https://my.cytron.io/p-maker-pi-pico
+  – Mifare RC522 RFID Kit
+    https://my.cytron.io/p-mifare-rc522-rfid-kit
+  – Grove – Relay
+    https://my.cytron.io/p-grove-relay
+  – USB Micro B Cable
+    https://my.cytron.io/p-usb-micro-b-cable
+  
+  Libraries required from bundle (https://circuitpython.org/libraries):
+  – simpleio.mpy
+  - adafruit_bus_device (folder)
+  
+  Other libraries required:
+  - mfrc522 (https://github.com/domdfcoding/circuitpython-mfrc522)
+  - circuitpython_nrf24l01 (folder) (https://github.com/nRF24/CircuitPython_nRF24L01)
+  
+  References:
+  – https://github.com/domdfcoding/circuitpython-mfrc522
+  - https://tutorial.cytron.io/2022/01/11/interface-rfid-rc522-reader-using-maker-pi-pico-and-circuitpython/
+    
+"""
 
 import board
 import busio
-#from digitalio import DigitalInOut
 from digitalio import DigitalInOut, Direction, Pull
-from adafruit_pn532.spi import PN532_SPI
-import digitalio
 import time
 import struct
 #import neopixel
 from circuitpython_nrf24l01.rf24 import RF24
+import simpleio
+import mfrc522
 
-#####
-#
-# Editing code for github repo
-#
-#
-#####
-
-
+'''
 ###############################
 # Set up digital pins for control of relay
 # input 1 = D.20
 # input 2 = D.21
 ###############################
-relay_1 = DigitalInOut(board.D21) #BLUE, IN1
-relay_2 = DigitalInOut(board.D20) #GREEN, IN2
+
+'''
+
+relay_1 = DigitalInOut(board.GP21) #BLUE, IN1
+relay_2 = DigitalInOut(board.GP20) #GREEN, IN2
 
 relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
@@ -136,8 +153,8 @@ def send_data_nrf(data):
 '''
 Set up Neopixel
 '''
-#led = digitalio.DigitalInOut(board.D13)
-#led.direction = digitalio.Direction.OUTPUT
+led = DigitalInOut(board.LED)
+led.direction = Direction.OUTPUT
 
 #pixel_pin = board.NEOPIXEL
 
@@ -154,57 +171,80 @@ Set up Neopixel
 #reset_pin = DigitalInOut(board.D6)
 
 
-
+'''
 ############################################
 # SPI connection:
 ############################################
-#spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
-spi = busio.SPI(board.SCLK, board.MOSI, board.MISO)
-cs_pin = DigitalInOut(board.D5)
-pn532 = PN532_SPI(spi, cs_pin, debug=False)
 
-print("setup PN532 complete")
-ic, ver, rev, support = pn532.firmware_version
-print("Found PN532 with firmware version: {0}.{1}".format(ver, rev))
+Set up SPI connection for the RC522 RFID reader
 
-# Configure PN532 to communicate with MiFare cards
-pn532.SAM_configuration()
+cd = SDA = GP5
+
+
+'''
+sck = board.GP6
+mosi = board.GP7
+miso = board.GP4
+spi = busio.SPI(sck, MOSI=mosi, MISO=miso)
+
+cs = DigitalInOut(board.GP5)
+rst = DigitalInOut(board.GP8)
+rfid = mfrc522.MFRC522(spi, cs, rst)
+rfid.set_antenna_gain(0x07 << 4)
+
+print("setup RC522 complete")
 
 # Create string from hex code to compare items
 tag_list = []
 prior_tag_str = ""
 
+'''
 ##################
 # Set up nrf
 ##################
+
+'''
+'''
 print("Setting up nRF")
 # addresses needs to be in a buffer protocol object (bytearray)
 address = b"1Node"
-ce_nrf_pin = DigitalInOut(board.D2)
-csn_nrf_pin = DigitalInOut(board.D3)
+ce_nrf_pin = DigitalInOut(board.GP2)
+csn_nrf_pin = DigitalInOut(board.GP3)
 nrf = RF24(spi, csn_nrf_pin, ce_nrf_pin)
 
 nrf.open_tx_pipe(address)  # set address of RX node into a TX pipe
 nrf.listen = False  # ensures the nRF24L01 is in TX mode
 
 print("#######")
-print("Setup of PN532 and nRF completed")
+print("Setup of nRF completed")
 print("#######")
+'''
 
 print("Waiting for RFID/NFC card...")
+
+prev_data = ""
+
 while True:
     # Check if a card is available to read
-    uid = pn532.read_passive_target(timeout=0.5)
-    #pixels.fill(YELLOW)
-    #pixels.show()
-    #print(".", end="")
-    # Try again if no card is available.
+    # uid = pn532.read_passive_target(timeout=0.5)
+    
+    (status, tag_type) = rfid.request(rfid.REQALL)
+    print(status)
+    print(tag_type)
+    
+    if status == rfid.OK:
+        (status, raw_uid) = rfid.anticoll()
+        rfid_data = "{:02x}{:02x}{:02x}{:02x}".format(raw_uid[0], raw_uid[1], raw_uid[2], raw_uid[3])
+        print("Card detected! UID: {}".format(rfid_data))
+    
+    '''
     if uid is None:
         prior_tag_str = ""
         if is_actuator_moving():
             stop_actuator()
         continue
-    #print("Found card with UID:", [hex(i) for i in uid])
-    #print("Found card with UID in str:", [str(i) for i in uid])
-    prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
-    time.sleep(0.25)
+    '''
+    
+    #prior_tag_str = process_tag(tag_list,uid,prior_tag_str)
+    
+    time.sleep(1)
