@@ -30,7 +30,6 @@ import busio
 from digitalio import DigitalInOut, Direction, Pull
 import time
 import struct
-#import neopixel
 from circuitpython_nrf24l01.rf24 import RF24
 import simpleio
 import mfrc522
@@ -38,8 +37,8 @@ import mfrc522
 '''
 ###############################
 # Set up digital pins for control of relay
-# input 1 = D.20
-# input 2 = D.21
+# input 1 = GP20
+# input 2 = GP21
 ###############################
 
 '''
@@ -50,12 +49,15 @@ relay_2 = DigitalInOut(board.GP20) #GREEN, IN2
 relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
 
+'''
 # For relay outputs, a value of FALSE is ON / ACTIVE on relay
 # and value of TRUE is OFF / INACTIVE on relay
 #
 # To extend linear actuator: relay_1 = True, relay_2 = False
 # To retract linear actuator: relay_1 = False, relay_2 = True
 # To pause / stop: relay_1 = relay_2 = True
+'''
+
 relay_1.value = True
 relay_2.value = True
 
@@ -77,7 +79,7 @@ def add_tag_to_list(tag_list, uid):
         #send_data_nrf(tag_int)
         #send_data_nrf(tag_str)
     return tag_str
-
+'''
 #######################################
 # process_tag
 # here, will perform actions / send nrf data based on tag
@@ -85,6 +87,8 @@ def add_tag_to_list(tag_list, uid):
 #   but will need to ensure we don't skip actions between long times of same tag
 #
 #######################################
+'''
+
 def process_tag(tag_list,uid,prior_tag_str):
     extend_actuator_tag = "25224315051"
     retract_actuator_tag = "141219112"
@@ -151,7 +155,9 @@ def send_data_nrf(data):
 
 
 '''
-Set up Neopixel
+#####
+# Set up LED pin
+#####
 '''
 led = DigitalInOut(board.LED)
 led.direction = Direction.OUTPUT
