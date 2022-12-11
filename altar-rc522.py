@@ -213,8 +213,8 @@ prior_tag_str = ""
 ##################
 # Set up nrf
 ##################
-
 '''
+
 '''
 print("Setting up nRF")
 # addresses needs to be in a buffer protocol object (bytearray)
@@ -247,14 +247,14 @@ while True:
         (status, raw_uid) = rfid.anticoll()
         rfid_data = "{:02x}{:02x}{:02x}{:02x}".format(raw_uid[0], raw_uid[1], raw_uid[2], raw_uid[3])
         print("Card detected! UID: {}".format(rfid_data))
-    
-    '''
-    if uid is None:
+        uid = rfid_data
+       
+    #if uid is None:
+    if status != rfid.OK:
         prior_tag_str = ""
-        if is_actuator_moving():
-            stop_actuator()
-        continue
-    '''
+        #if is_actuator_moving():
+        #    stop_actuator()
+        #continue    
     
     #prior_tag_str = process_tag(tag_list,uid,prior_tag_str)
     
