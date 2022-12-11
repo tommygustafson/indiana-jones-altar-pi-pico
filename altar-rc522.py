@@ -248,6 +248,7 @@ while True:
         rfid_data = "{:02x}{:02x}{:02x}{:02x}".format(raw_uid[0], raw_uid[1], raw_uid[2], raw_uid[3])
         print("Card detected! UID: {}".format(rfid_data))
         uid = rfid_data
+        #prior_tag_str = process_tag(tag_list,uid,prior_tag_str)
        
     #if uid is None:
     if status != rfid.OK:
@@ -258,4 +259,4 @@ while True:
     
     #prior_tag_str = process_tag(tag_list,uid,prior_tag_str)
     
-    time.sleep(1)
+    time.sleep(0.5)
