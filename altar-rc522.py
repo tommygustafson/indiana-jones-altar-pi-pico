@@ -25,8 +25,8 @@
    
 For Git:
 Git commit -am “commit notes”
-Git push origin main # pushes changes on pi’s to GitHub
-Git pull origin main # pulls or gets files from Github to pi
+Git push origin main --> pushes changes to GitHub
+Git pull origin main --> pulls / gets / updates files from Github
    
 """
 
