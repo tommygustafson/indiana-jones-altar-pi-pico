@@ -22,7 +22,12 @@
   References:
   – https://github.com/domdfcoding/circuitpython-mfrc522
   - https://tutorial.cytron.io/2022/01/11/interface-rfid-rc522-reader-using-maker-pi-pico-and-circuitpython/
-    
+   
+For Git:
+Git commit -am “commit notes”
+Git push origin main # pushes changes on pi’s to GitHub
+Git pull origin main # pulls or gets files from Github to pi
+   
 """
 
 import board
