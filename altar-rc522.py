@@ -23,7 +23,7 @@
   – https://github.com/domdfcoding/circuitpython-mfrc522
   - https://tutorial.cytron.io/2022/01/11/interface-rfid-rc522-reader-using-maker-pi-pico-and-circuitpython/
    
-For Git:
+For Git:  Use PowerShell
 Git commit -am “commit notes”
 Git push origin main --> pushes changes to GitHub
 Git pull origin main --> pulls / gets / updates files from Github
@@ -60,7 +60,7 @@ relay_2.direction = Direction.OUTPUT
 #
 # To extend linear actuator: relay_1 = True, relay_2 = False
 # To retract linear actuator: relay_1 = False, relay_2 = True
-# To pause / stop: relay_1 = relay_2 = True
+# To pause / stop: relay_1 = True, relay_2 = True
 '''
 
 relay_1.value = True
