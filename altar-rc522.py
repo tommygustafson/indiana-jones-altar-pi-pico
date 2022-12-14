@@ -253,8 +253,8 @@ while True:
     #if uid is None:
     if status != rfid.OK:
         prior_tag_str = ""
-        #if is_actuator_moving():
-        #    stop_actuator()
+        if is_actuator_moving():
+            stop_actuator()
         #continue    
     
     #prior_tag_str = process_tag(tag_list,uid,prior_tag_str)
