@@ -189,7 +189,7 @@ led.direction = Direction.OUTPUT
 
 Set up SPI connection for the RC522 RFID reader
 
-cd = SDA = GP5
+cs = SDA = GP5
 
 
 '''
@@ -235,19 +235,23 @@ print("Waiting for RFID/NFC card...")
 
 prev_data = ""
 
+counter = 0
 while True:
     # Check if a card is available to read
     # uid = pn532.read_passive_target(timeout=0.5)
     
     (status, tag_type) = rfid.request(rfid.REQALL)
-    print(status)
-    print(tag_type)
+    #print(status)
+    #print(tag_type)
+    #print("--  " + str(counter) + "  --")
+    #counter += 1
     
     if status == rfid.OK:
         (status, raw_uid) = rfid.anticoll()
-        rfid_data = "{:02x}{:02x}{:02x}{:02x}".format(raw_uid[0], raw_uid[1], raw_uid[2], raw_uid[3])
-        print("Card detected! UID: {}".format(rfid_data))
-        uid = rfid_data
+        #rfid_data = "{:02x}{:02x}{:02x}{:02x}".format(raw_uid[0], raw_uid[1], raw_uid[2], raw_uid[3])
+        #print("Card detected! UID: {}".format(rfid_data))
+        #uid = rfid_data
+        print(raw_uid)
         #prior_tag_str = process_tag(tag_list,uid,prior_tag_str)
        
     #if uid is None:
@@ -259,4 +263,4 @@ while True:
     
     #prior_tag_str = process_tag(tag_list,uid,prior_tag_str)
     
-    time.sleep(0.5)
+    #time.sleep(0.05)
