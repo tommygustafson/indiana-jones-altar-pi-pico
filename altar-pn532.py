@@ -226,14 +226,11 @@ print("#######")
 print("Setup of nRF completed")
 print("#######")
 '''
+print("#######")
+print("Setup of PN532 completed")
+print("#######")
 
 print("Waiting for RFID/NFC card...")
-
-prev_data = ""
-
-counter = 0
-while True:
-    print("Waiting for RFID/NFC card...")
 while True:
     # Check if a card is available to read
     uid = pn532.read_passive_target(timeout=0.5)
@@ -247,7 +244,6 @@ while True:
             stop_actuator()
         continue
     #print("Found card with UID:", [hex(i) for i in uid])
-    print("Found card with UID in str:", [str(i) for i in uid])
-    
-    #prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
-    time.sleep(0.25)
+    #print("Found card with UID in str:", [str(i) for i in uid])
+    prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
+    time.sleep(1)
