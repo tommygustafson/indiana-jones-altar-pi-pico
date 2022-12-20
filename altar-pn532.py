@@ -160,8 +160,8 @@ def send_data_nrf(data):
 # Set up LED pin
 #####
 '''
-led = DigitalInOut(board.LED)
-led.direction = Direction.OUTPUT
+#led = DigitalInOut(board.LED)
+#led.direction = Direction.OUTPUT
 
 
 '''
