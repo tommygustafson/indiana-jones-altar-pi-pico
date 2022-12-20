@@ -32,6 +32,7 @@ import busio
 from digitalio import DigitalInOut, Direction, Pull
 import time
 import struct
+from datetime import datetime
 from circuitpython_nrf24l01.rf24 import RF24
 from adafruit_pn532.spi import PN532_SPI
 
@@ -93,6 +94,12 @@ def add_tag_to_list(tag_list, uid):
 def process_tag(tag_list,uid,prior_tag_str):
     extend_actuator_tag = "25224315051"
     retract_actuator_tag = "141219112"
+
+    # datetime object containing current date and time
+    now = datetime.now()
+    # dd/mm/YY H:M:S
+    dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
+    print("date and time =", dt_string)
 
     tag_str = add_tag_to_list(tag_list,uid)
     print("Processing tag: ", tag_str)
