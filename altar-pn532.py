@@ -102,7 +102,7 @@ def process_tag(tag_list,uid,prior_tag_str):
         #stop_actuator()
     else:
         print("New tag detected, taking action and send data")
-        send_data_nrf(tag_str)
+        #send_data_nrf(tag_str)
         if tag_str == extend_actuator_tag:
             extend_actuator()
         if tag_str == retract_actuator_tag:
