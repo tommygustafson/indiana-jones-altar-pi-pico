@@ -38,14 +38,14 @@ from adafruit_pn532.spi import PN532_SPI
 '''
 ###############################
 # Set up digital pins for control of relay
-# input 1 = GP20
-# input 2 = GP21
+# input 1 = D.20
+# input 2 = D.21
 ###############################
 
 '''
 
-relay_1 = DigitalInOut(board.GP21) #BLUE, IN1
-relay_2 = DigitalInOut(board.GP20) #GREEN, IN2
+relay_1 = DigitalInOut(board.D21) #BLUE, IN1
+relay_2 = DigitalInOut(board.D20) #GREEN, IN2
 
 relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
