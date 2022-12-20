@@ -33,7 +33,7 @@ from digitalio import DigitalInOut, Direction, Pull
 import time
 import struct
 from circuitpython_nrf24l01.rf24 import RF24
-from adafruit_pn532.spi import PN352_SPI
+from adafruit_pn532.spi import PN532_SPI
 
 '''
 ###############################
