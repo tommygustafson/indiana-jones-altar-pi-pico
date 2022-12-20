@@ -12,7 +12,11 @@
   
   References:
   – https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi
-    --> Installs 
+    --> Installs circuit python libraries, checks a bunch of useful config items (SSH, SPI)
+  - https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/spi-sensors-devices
+    --> Info specifically on SPI bus
+  - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
+    -->  Installing the PN532 libraries, wiring diagrams for the PN532 breakout board
    
 For Git:  Use PowerShell
 Git commit -am “commit notes”
@@ -30,8 +34,6 @@ from circuitpython_nrf24l01.rf24 import RF24
 import simpleio
 import adafruit_pn532
 from adafruit_pn532.spi import PN352_SPI
-#from adafruit_pn532.spi import PN532_SPI
-
 
 '''
 ###############################
@@ -161,20 +163,6 @@ def send_data_nrf(data):
 led = DigitalInOut(board.LED)
 led.direction = Direction.OUTPUT
 
-#pixel_pin = board.NEOPIXEL
-
-#num_pixels = 1
-
-# The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green reversed!
-# For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
-#ORDER = neopixel.RGB
-
-#pixels = neopixel.NeoPixel(
-#    pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER
-#)
-
-#reset_pin = DigitalInOut(board.D6)
-
 
 '''
 ############################################
@@ -189,7 +177,8 @@ cs = SDA = GP5
 ############################################
 # SPI connection:
 ############################################
-#spi = busio.SPI(board.SCK, board.MOSI, board.MISO)
+'''
+
 spi = busio.SPI(board.SCLK, board.MOSI, board.MISO)
 cs_pin = DigitalInOut(board.D5)
 pn532 = PN532_SPI(spi, cs_pin, debug=False)
@@ -204,15 +193,6 @@ pn532.SAM_configuration()
 # Create string from hex code to compare items
 tag_list = []
 prior_tag_str = ""
-'''
-sck = board.GP6
-mosi = board.GP7
-miso = board.GP4
-spi = busio.SPI(sck, MOSI=mosi, MISO=miso)
-
-cs = DigitalInOut(board.GP5)
-rst = DigitalInOut(board.GP8)
-pn532 = PN532_SPI(spi, cs_pin, debug=False)
 
 print("setup PN532 complete")
 ic, ver, rev, support = pn532.firmware_version
