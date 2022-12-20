@@ -103,6 +103,7 @@ def process_tag(tag_list,uid,prior_tag_str):
 
     tag_str = add_tag_to_list(tag_list,uid)
     print("Processing tag: ", tag_str)
+    print(tag_list)
 
     if prior_tag_str == tag_str:
         print("Same tag on sensor, take no action")
