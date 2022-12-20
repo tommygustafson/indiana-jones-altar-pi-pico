@@ -7,7 +7,7 @@
   - adafruit_bus_device (folder)
   
   Other libraries required:
-  - mfrc522 (https://github.com/domdfcoding/circuitpython-mfrc522)
+  - adafruit_pn532
   - circuitpython_nrf24l01 (folder) (https://github.com/nRF24/CircuitPython_nRF24L01)
   
   References:
@@ -17,6 +17,8 @@
     --> Info specifically on SPI bus
   - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
     -->  Installing the PN532 libraries, wiring diagrams for the PN532 breakout board
+  - https://circuitpython-nrf24l01.readthedocs.io/en/latest/
+    --> Installing the nrf libraries, wiring, pinouts for the NRF42l01 wireless transceiver
    
 For Git:  Use PowerShell
 Git commit -am “commit notes”
@@ -31,8 +33,6 @@ from digitalio import DigitalInOut, Direction, Pull
 import time
 import struct
 from circuitpython_nrf24l01.rf24 import RF24
-import simpleio
-import adafruit_pn532
 from adafruit_pn532.spi import PN352_SPI
 
 '''
