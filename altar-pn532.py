@@ -2,9 +2,8 @@
   Interface RFid PN-532 Reader using Python3 / CircuitPython on Raspberry Pi 3/4/Zero
   -- Pn-532 Library does NOT work on the Pico
   
-  Libraries required from bundle (https://circuitpython.org/libraries):
-  – simpleio.mpy
-  - adafruit_bus_device (folder)
+  Turn off Wifi power management:
+  run in terminal: sudo iw wlan0 set power_save off
   
   Other libraries required:
   - adafruit_pn532
@@ -103,7 +102,7 @@ def process_tag(tag_list,uid,prior_tag_str):
 
     tag_str = add_tag_to_list(tag_list,uid)
     print("Processing tag: ", tag_str)
-    print(tag_list)
+    #print(tag_list)
 
     if prior_tag_str == tag_str:
         print("Same tag on sensor, take no action")
@@ -179,12 +178,13 @@ def send_data_nrf(data):
 
 Set up SPI connection for the PN532 RFID reader
 
-cs = SDA = GP5
-'''
-'''
-############################################
-# SPI connection:
-############################################
+White = 3.3v
+Black = Ground
+Green / teal = SCK
+Purple = MISO
+Gray = MOSI
+Blue = SCL / Rx / SSEL
+
 '''
 
 spi = busio.SPI(board.SCLK, board.MOSI, board.MISO)
