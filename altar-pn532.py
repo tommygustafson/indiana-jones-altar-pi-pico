@@ -4,6 +4,7 @@
   
   Turn off Wifi power management:
   run in terminal: sudo iw wlan0 set power_save off
+  check: sudo iw wlan0 get power_save
   
   Other libraries required:
   - adafruit_pn532
