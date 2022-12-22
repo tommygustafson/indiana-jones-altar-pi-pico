@@ -53,8 +53,8 @@ import subprocess
 output = subprocess.run(['sudo iw wlan0 set power_save off'], shell=True, capture_output=True, text=True)
 output2 = subprocess.run(['iw wlan0 get power_save'], shell=True, capture_output=True, text=True)
 #pass whole command as string
-#ouput['stdout'] includes the return text, need to strip \n
-print(output2.stdout)
+#ouput2.stdout includes the return text, need to strip \n
+print(output2.stdout.strip())
 
 '''
 ###############################
