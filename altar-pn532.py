@@ -8,6 +8,11 @@
   run in terminal: sudo iw wlan0 set power_save off
   check: iw wlan0 get power_save
   should return: "Power save: off"
+  EXAMPLE:
+  import subprocess
+  output = subprocess.run(['sudo iw wlan0 set power_save off'], shell=True, capture_output=True, text=True)
+  #pass whole command as string
+  print(output)
   
   Other libraries required:
   - adafruit_pn532
@@ -39,6 +44,15 @@ from datetime import datetime
 from circuitpython_nrf24l01.rf24 import RF24
 from adafruit_pn532.spi import PN532_SPI
 import subprocess
+
+'''
+###############
+# Use Subprocess to ensure that wireless / Wifi power management is OFF
+###############
+'''
+output = subprocess.run(['sudo iw wlan0 set power_save off'], shell=True, capture_output=True, text=True)
+#pass whole command as string
+print(output)
 
 '''
 ###############################
