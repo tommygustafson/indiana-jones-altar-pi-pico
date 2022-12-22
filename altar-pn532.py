@@ -203,17 +203,6 @@ pn532.SAM_configuration()
 tag_list = []
 prior_tag_str = ""
 
-print("setup PN532 complete")
-ic, ver, rev, support = pn532.firmware_version
-print("Found PN532 with firmware version: {0}.{1}".format(ver, rev))
-
-# Configure PN532 to communicate with MiFare cards
-pn532.SAM_configuration()
-
-# Create string from hex code to compare items
-tag_list = []
-prior_tag_str = ""
-
 '''
 ##################
 # Set up nrf
