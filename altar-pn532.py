@@ -3,8 +3,11 @@
   -- Pn-532 Library does NOT work on the Pico
   
   Turn off Wifi power management:
+  [Consider using subprocess to call this at start of program]
+  [https://www.circuitbasics.com/run-linux-commands-with-python/]
   run in terminal: sudo iw wlan0 set power_save off
-  check: sudo iw wlan0 get power_save
+  check: iw wlan0 get power_save
+  should return: "Power save: off"
   
   Other libraries required:
   - adafruit_pn532
@@ -35,6 +38,7 @@ import struct
 from datetime import datetime
 from circuitpython_nrf24l01.rf24 import RF24
 from adafruit_pn532.spi import PN532_SPI
+import subprocess
 
 '''
 ###############################
