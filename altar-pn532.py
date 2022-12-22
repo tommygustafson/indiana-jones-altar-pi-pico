@@ -57,7 +57,6 @@ output2 = subprocess.run(['iw wlan0 get power_save'], shell=True, capture_output
 output_txt = output2.stdout.strip()
 if output_txt == 'Power save: off':
     print("WIFI POWER MANAGEMENT IS OFF")
-print(output2.stdout.strip())
 
 '''
 ###############################
