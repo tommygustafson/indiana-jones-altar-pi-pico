@@ -67,6 +67,7 @@ else:
 # input 2 = D.21
 
 Also need to attach on relay, vcc to 5v on Rpi and gnd to ground on Rpi
+
 ###############################
 
 '''
