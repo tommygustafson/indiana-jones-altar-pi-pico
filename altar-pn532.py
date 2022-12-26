@@ -57,6 +57,8 @@ output2 = subprocess.run(['iw wlan0 get power_save'], shell=True, capture_output
 output_txt = output2.stdout.strip()
 if output_txt == 'Power save: off':
     print("WIFI POWER MANAGEMENT IS OFF")
+else:
+    print("WIFI POWER MANAGEMENT IS ON - NEED TO FIX")
 
 '''
 ###############################
@@ -74,12 +76,14 @@ relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
 
 '''
+#########################
 # For relay outputs, a value of FALSE is ON / ACTIVE on relay
 # and value of TRUE is OFF / INACTIVE on relay
 #
 # To extend linear actuator: relay_1 = True, relay_2 = False
 # To retract linear actuator: relay_1 = False, relay_2 = True
 # To pause / stop: relay_1 = True, relay_2 = True
+##########################
 '''
 
 relay_1.value = True
@@ -114,8 +118,9 @@ def add_tag_to_list(tag_list, uid):
 '''
 
 def process_tag(tag_list,uid,prior_tag_str):
-    extend_actuator_tag = "25224315051"
-    retract_actuator_tag = "141219112"
+    # TO DO: Make extend and retractor tag as lists to allow multiple tags / objects
+    extend_actuator_tag = "56146162137"
+    retract_actuator_tag = "24023514149"
 
     # datetime object containing current date and time
     now = datetime.now()
@@ -209,12 +214,11 @@ Gray = MOSI
 Blue = SCL / Rx / SSEL
 
 '''
-
+print("Starting setup of PN532")
 spi = busio.SPI(board.SCLK, board.MOSI, board.MISO)
 cs_pin = DigitalInOut(board.D5)
 pn532 = PN532_SPI(spi, cs_pin, debug=False)
 
-print("setup PN532 complete")
 ic, ver, rev, support = pn532.firmware_version
 print("Found PN532 with firmware version: {0}.{1}".format(ver, rev))
 
