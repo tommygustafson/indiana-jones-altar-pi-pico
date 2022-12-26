@@ -65,6 +65,8 @@ else:
 # Set up digital pins for control of relay
 # input 1 = D.20
 # input 2 = D.21
+
+Also need to attach on relay, vcc to 5v on Rpi and gnd to ground on Rpi
 ###############################
 
 '''
@@ -270,4 +272,4 @@ while True:
     #print("Found card with UID:", [hex(i) for i in uid])
     #print("Found card with UID in str:", [str(i) for i in uid])
     prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
-    time.sleep(1)
+    time.sleep(0.5)
