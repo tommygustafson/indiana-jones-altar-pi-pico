@@ -1,12 +1,10 @@
 """
-  Interface RFid PN-532 Reader using Python3 / CircuitPython on Raspberry Pi 3/4/Zero
+  Interface RFid PN-532 Reader using CircuitPython on Raspberry Pi Pico
   
   https://github.com/adafruit/Adafruit_CircuitPython_PN532
   
   Example code of someone using with Pi Pico:
   https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
-  
-  
   
   Other libraries required:
   - adafruit_pn532
