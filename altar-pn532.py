@@ -1,18 +1,12 @@
 """
   Interface RFid PN-532 Reader using Python3 / CircuitPython on Raspberry Pi 3/4/Zero
-  -- Pn-532 Library does NOT work on the Pico
   
-  Turn off Wifi power management:
-  [Consider using subprocess to call this at start of program]
-  [https://www.circuitbasics.com/run-linux-commands-with-python/]
-  run in terminal: sudo iw wlan0 set power_save off
-  check: iw wlan0 get power_save
-  should return: "Power save: off"
-  EXAMPLE:
-  import subprocess
-  output = subprocess.run(['sudo iw wlan0 set power_save off'], shell=True, capture_output=True, text=True)
-  #pass whole command as string
-  print(output)
+  https://github.com/adafruit/Adafruit_CircuitPython_PN532
+  
+  Example code of someone using with Pi Pico:
+  https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
+  
+  
   
   Other libraries required:
   - adafruit_pn532
@@ -43,22 +37,6 @@ import struct
 from datetime import datetime
 from circuitpython_nrf24l01.rf24 import RF24
 from adafruit_pn532.spi import PN532_SPI
-import subprocess
-
-'''
-###############
-# Use Subprocess to ensure that wireless / Wifi power management is OFF
-###############
-'''
-output = subprocess.run(['sudo iw wlan0 set power_save off'], shell=True, capture_output=True, text=True)
-output2 = subprocess.run(['iw wlan0 get power_save'], shell=True, capture_output=True, text=True)
-#pass whole command as string
-#ouput2.stdout includes the return text, need to strip \n
-output_txt = output2.stdout.strip()
-if output_txt == 'Power save: off':
-    print("WIFI POWER MANAGEMENT IS OFF")
-else:
-    print("WIFI POWER MANAGEMENT IS ON - NEED TO FIX")
 
 '''
 ###############################
