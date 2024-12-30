@@ -14,8 +14,18 @@ RFID reader:
   - Plan to use the SPI interface
 - Can also use MF522 as backup if needed
 
+Example Code for PN532:
+  - Example code from PN532 library page
+    --> https://docs.circuitpython.org/projects/pn532/en/latest/examples.html
+  - Example code for UART
+    --> https://github.com/StevenSeagull1/raspbery_pico/tree/main
+  - Example code for SPI
+    --> https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
+
 Basic arrangement
 - Pi Pico #1 -> runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with RFM69 packet radio
+  - Plan to also drive small speaker to play sound file (presume mp3) of grinding rock as the altar pedestal moves up / down
+  - Guide to mp3 playback on Pico: https://learn.adafruit.com/mp3-playback-rp2040/pico-mp3
 - Pi Pico #2,... -> runs listen-act.py, which receives the RFID key tag string via RFM69 packet radio and can then perform actions based on this tag
 
 For editing python code on the Pico, recommend using Thonny or Mu Editor
@@ -32,15 +42,9 @@ Other libraries required:
   - Copy the folder "adafruit_pn532" to the "lib" folder on the CircuitPy drive  (.e. root / lib / adafruit-pn523)
   - circuitpython_nrf24l01 (folder) (https://github.com/nRF24/CircuitPython_nRF24L01)
 
-Example Code for PN532:
-  - Example code from PN532 library page
-    --> https://docs.circuitpython.org/projects/pn532/en/latest/examples.html
-  - Example code for UART
-    --> https://github.com/StevenSeagull1/raspbery_pico/tree/main
-  - Example code for SPI
-    --> https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
-  
-  References:
+---
+
+  Other References:
   - https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/spi-sensors-devices
     --> Info specifically on SPI bus
   - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
