@@ -47,7 +47,8 @@ Basic arrangement / wiring diagrams
 
 Other libraries required:
 - Need to use the current Adafruit Circuitpython bundle
-  - Copy the folder "adafruit_pn532" to the "lib" folder on the CircuitPy drive  (.e. root / lib / adafruit-pn523)
+  - Copy the folder "adafruit_pn532" to the "lib" folder on the CircuitPy drive  (.e. root / lib / "adafruit-pn523 folder")
+  - Copy the "adafruit_rfm69.mpy" to the "lib" folder on the CircuitPy drive (i.e. root / lib / adafruit_rfm69.mpy)
   - circuitpython_nrf24l01 (folder) (https://github.com/nRF24/CircuitPython_nRF24L01)
 
 ---
