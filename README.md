@@ -2,7 +2,7 @@
 This is the code that connects the PN532 RFID reader, activates the linear actuator and can also communicate with other devices with RFM69 packet radio
 
 Plan for all devices to run on Raspberry Pi Pico (RP2040) based boards with RFM69 packet radios, currently using:
-Adafruit Feather RP2040 RFM69 Packet Radio (868 or 915 MHz)
+Adafruit Feather RP2040 RFM69 Packet Radio (868 or 915 MHz) and allows for STEMMA QT expansion
 - https://www.adafruit.com/product/5712
 - Guide: https://learn.adafruit.com/feather-rp2040-rfm69
 
@@ -34,7 +34,9 @@ Basic arrangement / wiring diagrams
 - Pi Pico #1 -> the main altar and pedestal
   - runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with RFM69 packet radio
   - Plan to also drive small speaker to play sound file (presume mp3) of grinding rock as the altar pedestal moves up / down
-  - Guide to mp3 playback on Pico: https://learn.adafruit.com/mp3-playback-rp2040/pico-mp3
+    - Guide to mp3 playback on Pico: https://learn.adafruit.com/mp3-playback-rp2040/pico-mp3
+  - Plan to add small vibration or piezo electric shaker for additional fun
+    - https://www.adafruit.com/product/2305
 
 
 
