@@ -4,6 +4,7 @@ This is the code that connects the PN532 RFID reader, activates the linear actua
 Plan for all devices to run on Raspberry Pi Pico (RP2040) based boards with RFM69 packet radios, currently using:
 Adafruit Feather RP2040 RFM69 Packet Radio (868 or 915 MHz)
 - https://www.adafruit.com/product/5712
+- Guide: https://learn.adafruit.com/feather-rp2040-rfm69
 
 The project is designed to run under CircuitPython, but if memory issues, can consider using MicroPython with Thonny and tips below:
 - In general, we will use Thonny to save files to the Pico and to edit code
@@ -25,6 +26,9 @@ Example Code for PN532:
     --> https://github.com/StevenSeagull1/raspbery_pico/tree/main
   - Example code for SPI
     --> https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
+
+Information / guides on using the RFM69 radio:
+- https://learn.adafruit.com/feather-rp2040-rfm69/rfm69-radio-demo
 
 Basic arrangement / wiring diagrams
 - Pi Pico #1 -> the main altar and pedestal
