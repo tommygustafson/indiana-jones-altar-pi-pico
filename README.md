@@ -11,13 +11,16 @@ The project is designed to run under CircuitPython, but if memory issues, can co
 
 RFID reader:
 - PN532
-  - ***
   - Plan to use the SPI interface
 - Can also use MF522 as backup if needed
 
 Basic arrangement
 - Pi Pico #1 -> runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with RFM69 packet radio
 - Pi Pico #2,... -> runs listen-act.py, which receives the RFID key tag string via RFM69 packet radio and can then perform actions based on this tag
+
+For editing python code on the Pico, recommend using Thonny or Mu Editor
+- If using CircuitPython, no specific requirements
+- If using Micropython, recommend Thonny
 
 -------------------------------------
 
