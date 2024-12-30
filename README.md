@@ -17,8 +17,16 @@ Wiring diagram and moduels used on Pi zero
 - runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with ESP322 radio
 
 Other libraries required:
-  - adafruit_pn532
+  - adafruit_pn532.mpy
   - circuitpython_nrf24l01 (folder) (https://github.com/nRF24/CircuitPython_nRF24L01)
+
+Example Code for PN532:
+  - Example code from PN532 library page
+    --> https://docs.circuitpython.org/projects/pn532/en/latest/examples.html
+  - Example code for UART
+    --> https://github.com/StevenSeagull1/raspbery_pico/tree/main
+  - Example code for SPI
+    --> https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
   
   References:
   – https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi
