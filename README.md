@@ -13,14 +13,15 @@ RFID reader:
 - PN532
   - ***
   - Plan to use the SPI interface
+- Can also use MF522 as backup if needed
 
 Basic arrangement
 - Pi Pico #1 -> runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with RFM69 packet radio
-- Pi Pico #2,... -> runs listen-act.py, which receives the RFID key tag string via RFM69 packet radio and can then act based on this tag
+- Pi Pico #2,... -> runs listen-act.py, which receives the RFID key tag string via RFM69 packet radio and can then perform actions based on this tag
 
 -------------------------------------
 
-Wiring diagram and moduels used on Pi zero
+Wiring diagram and modules used on Pi zero
 - runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with ESP322 radio
 
 Other libraries required:
