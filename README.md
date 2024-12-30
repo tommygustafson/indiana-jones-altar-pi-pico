@@ -9,6 +9,10 @@ The project is designed to run under CircuitPython, but if memory issues, can co
 - In general, we will use Thonny to save files to the Pico and to edit code
 - Guide: https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/0
 
+For editing python code on the Pico, recommend using Thonny or Mu Editor
+- If using CircuitPython, no specific requirements with my preference for Thonny
+- If using Micropython, recommend Thonny
+
 RFID reader:
 - PN532
   - Plan to use the SPI interface
@@ -22,20 +26,18 @@ Example Code for PN532:
   - Example code for SPI
     --> https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
 
-Basic arrangement
-- Pi Pico #1 -> runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with RFM69 packet radio
+Basic arrangement / wiring diagrams
+- Pi Pico #1 -> the main altar and pedestal
+  - runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with RFM69 packet radio
   - Plan to also drive small speaker to play sound file (presume mp3) of grinding rock as the altar pedestal moves up / down
   - Guide to mp3 playback on Pico: https://learn.adafruit.com/mp3-playback-rp2040/pico-mp3
+
+
+
+
 - Pi Pico #2,... -> runs listen-act.py, which receives the RFID key tag string via RFM69 packet radio and can then perform actions based on this tag
 
-For editing python code on the Pico, recommend using Thonny or Mu Editor
-- If using CircuitPython, no specific requirements
-- If using Micropython, recommend Thonny
-
 -------------------------------------
-
-Wiring diagram and modules used on Pi zero
-- runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with ESP322 radio
 
 Other libraries required:
 - Need to use the current Adafruit Circuitpython bundle
