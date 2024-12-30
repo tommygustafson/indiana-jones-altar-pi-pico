@@ -29,8 +29,6 @@ Example Code for PN532:
     --> https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
   
   References:
-  – https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi
-    --> Installs circuit python libraries, checks a bunch of useful config items (SSH, SPI)
   - https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/spi-sensors-devices
     --> Info specifically on SPI bus
   - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
