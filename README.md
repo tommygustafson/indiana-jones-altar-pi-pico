@@ -13,14 +13,10 @@ RFID reader:
 - PN532
   - ***
   - Plan to use the SPI interface
-  - Another example: https://how2electronics.com/using-rc522-rfid-reader-module-with-raspberry-pi-pico/
-  - Another example: https://microcontrollerslab.com/raspberry-pi-pico-rfid-rc522-micropython/#google_vignette
 
 Basic arrangement
-- Pi Pico #1 -> runs altar_pn532.py which drives the RC522 RFID reader, controls linear actuator and sends commands to other devices with RFM69 packet radio
+- Pi Pico #1 -> runs altar_pn532.py which drives the PN532 RFID reader, controls linear actuator and sends commands to other devices with RFM69 packet radio
 - Pi Pico #2,... -> runs listen-act.py, which receives the RFID key tag string via RFM69 packet radio and can then act based on this tag
-
-Working on using Github Desktop
 
 -------------------------------------
 
@@ -29,7 +25,7 @@ Wiring diagram and moduels used on Pi zero
 
 Other libraries required:
 - Need to use the current Adafruit Circuitpython bundle
-  - Copy the folder "adafruit_pn532" to the "lib" folder on the CircuitPy drive
+  - Copy the folder "adafruit_pn532" to the "lib" folder on the CircuitPy drive  (.e. root / lib / adafruit-pn523)
   - circuitpython_nrf24l01 (folder) (https://github.com/nRF24/CircuitPython_nRF24L01)
 
 Example Code for PN532:
