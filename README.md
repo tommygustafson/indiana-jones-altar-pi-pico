@@ -32,6 +32,7 @@ PN532:
     - MOSI = SPI TX (default for SPI0 is GP19)
     - MISO = SPI RX (default for SPI0 is GP16)
     - SCK = SPI SCK (default for SPI0 is GP18)
+    - CSN = SPI CSN (default for SPI0 is GP17)
     - 3.3V
     - GND
 
