@@ -19,13 +19,21 @@ RFID reader:
   - Plan to use the SPI interface
 - Can also use MF522 as backup if needed
 
-Example Code for PN532:
+PN532:
   - Example code from PN532 library page
     --> https://docs.circuitpython.org/projects/pn532/en/latest/examples.html
   - Example code for UART
     --> https://github.com/StevenSeagull1/raspbery_pico/tree/main
   - Example code for SPI
     --> https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
+  - Wiring for SPI:
+    - https://forums.raspberrypi.com/viewtopic.php?t=320933
+    - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
+    - MOSI = SPI TX (default for SPI0 is GP19)
+    - MISO = SPI RX (default for SPI0 is GP16)
+    - SCK = SPI SCK (default for SPI0 is GP18)
+    - 3.3V
+    - GND
 
 Information / guides on using the RFM69 radio:
 - https://learn.adafruit.com/feather-rp2040-rfm69/rfm69-radio-demo
