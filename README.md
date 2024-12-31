@@ -30,9 +30,9 @@ PN532:
     - https://forums.raspberrypi.com/viewtopic.php?t=320933
     - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
     - MOSI = SPI TX (default for SPI0 on Pico is GP19) and is MOSI on red PN532 board
-    - MISO = SPI RX (default for SPI0 is GP16) and is MISO on red PN532
-    - SCK = SPI SCK (default for SPI0 is GP18)
-    - CSN = SPI CSN (default for SPI0 is GP17)
+    - MISO = SPI RX (default for SPI0 on Pico is GP16) and is MISO on red PN532 board
+    - SCK = SPI SCK (default for SPI0 on Pico is GP18) and is SCK on red PN532 board
+    - CSN = SPI CSN (default for SPI0 on Pico is GP17) and is SS on red PN532 board
     - 3.3V
     - GND
 
