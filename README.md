@@ -47,9 +47,6 @@ Basic arrangement / wiring diagrams
   - Plan to add small vibration or piezo electric shaker for additional fun
     - https://www.adafruit.com/product/2305
 
-
-
-
 - Pi Pico #2,... -> runs listen-act.py, which receives the RFID key tag string via RFM69 packet radio and can then perform actions based on this tag
 
 -------------------------------------
@@ -58,7 +55,6 @@ Other libraries required:
 - Need to use the current Adafruit Circuitpython bundle
   - Copy the folder "adafruit_pn532" to the "lib" folder on the CircuitPy drive  (.e. root / lib / "adafruit-pn523 folder")
   - Copy the "adafruit_rfm69.mpy" to the "lib" folder on the CircuitPy drive (i.e. root / lib / adafruit_rfm69.mpy)
-  - circuitpython_nrf24l01 (folder) (https://github.com/nRF24/CircuitPython_nRF24L01)
 
 ---
 
@@ -67,8 +63,6 @@ Other libraries required:
     --> Info specifically on SPI bus
   - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
     -->  Installing the PN532 libraries, wiring diagrams for the PN532 breakout board
-  - https://circuitpython-nrf24l01.readthedocs.io/en/latest/
-    --> Installing the nrf libraries, wiring, pinouts for the NRF42l01 wireless transceiver
 
 --------------------------------------
 
