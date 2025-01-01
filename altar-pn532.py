@@ -1,30 +1,5 @@
 """
-  Interface RFid PN-532 Reader using CircuitPython on Raspberry Pi Pico
-  
-  https://github.com/adafruit/Adafruit_CircuitPython_PN532
-  
-  Example code of someone using with Pi Pico:
-  https://stackoverflow.com/questions/73194125/select-apdu-command-on-raspberry-pi-pico-with-pn532-repond-nothing
-  
-  Other libraries required:
-  - adafruit_pn532
-  - circuitpython_nrf24l01 (folder) (https://github.com/nRF24/CircuitPython_nRF24L01)
-  
-  References:
-  – https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi
-    --> Installs circuit python libraries, checks a bunch of useful config items (SSH, SPI)
-  - https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/spi-sensors-devices
-    --> Info specifically on SPI bus
-  - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
-    -->  Installing the PN532 libraries, wiring diagrams for the PN532 breakout board
-  - https://circuitpython-nrf24l01.readthedocs.io/en/latest/
-    --> Installing the nrf libraries, wiring, pinouts for the NRF42l01 wireless transceiver
-   
-For Git:  Use PowerShell
-Git commit -am “commit notes”
-Git push origin main --> pushes changes to GitHub
-Git pull origin main --> pulls / gets / updates files from Github
-   
+Interface RFid PN-532 Reader with RFM69 packet radio using CircuitPython on Raspberry Pi Pico   
 """
 import board
 import busio
@@ -37,10 +12,10 @@ from adafruit_datetime import datetime
 '''
 ###############################
 # Set up digital pins for control of relay
-# input 1 = D.20
-# input 2 = D.21
+# input 1 = GP27
+# input 2 = GP26
 
-Also need to attach on relay, vcc to 5v on Rpi and gnd to ground on Rpi
+Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
 
 ###############################
 
@@ -66,7 +41,6 @@ relay_2.direction = Direction.OUTPUT
 relay_1.value = True
 relay_2.value = True
 
-#def add_tag_to_list(tag_list, uid, pixels):
 def add_tag_to_list(tag_list, uid):
     tag_str = ''
     tag_int = 0
@@ -76,18 +50,14 @@ def add_tag_to_list(tag_list, uid):
     if tag_str not in tag_list:
         tag_list.append(tag_str)
         print("added tag ",tag_str," to tag list")
-        #pixels.fill(GREEN)
     else:
         throw_away = 1
         #print("Tag ", tag_str, " already in list")
-        #print("Sending tag_int = ", tag_int)
-        #send_data_nrf(tag_int)
-        #send_data_nrf(tag_str)
     return tag_str
 '''
 #######################################
 # process_tag
-# here, will perform actions / send nrf data based on tag
+# here, will perform actions / send RFM69 data based on tag
 # Consider, taking no action if same tag present from cycle to cyle,
 #   but will need to ensure we don't skip actions between long times of same tag
 #
@@ -96,8 +66,8 @@ def add_tag_to_list(tag_list, uid):
 
 def process_tag(tag_list,uid,prior_tag_str):
     # TO DO: Make extend and retractor tag as lists to allow multiple tags / objects
-    extend_actuator_tag = "56146162137"
-    retract_actuator_tag = "24023514149"
+    extend_actuator_tag = "8131164137"
+    retract_actuator_tag = "8018321730"
 
     print(datetime.now())
 
@@ -110,12 +80,11 @@ def process_tag(tag_list,uid,prior_tag_str):
         #stop_actuator()
     else:
         print("New tag detected, taking action and send data")
-        #send_data_nrf(tag_str)
+        #send_data_rfm69(str_to_send)
         if tag_str == extend_actuator_tag:
             extend_actuator()
         if tag_str == retract_actuator_tag:
             retract_actuator()
-
 
     # Return current tag_str to become prior_tag_str
     print("---------")
@@ -223,5 +192,5 @@ while True:
     #print("Found card with UID:", [hex(i) for i in uid])
     #print("Found card with UID in str:", [str(i) for i in uid])
     prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
-    time.sleep(0.5)
+    time.sleep(1)
 
