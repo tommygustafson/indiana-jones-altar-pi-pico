@@ -1,64 +1,32 @@
-import time
-import struct
 import board
-import digitalio as dio
-# if running this on a ATSAMD21 M0 based board
-# from circuitpython_nrf24l01.rf24_lite import RF24
-from circuitpython_nrf24l01.rf24 import RF24
+import busio
+from digitalio import DigitalInOut, Direction, Pull
+import time
+import adafruit_rfm69
+from adafruit_datetime import datetime
 
+# Define radio frequency in MHz. Must match your
+# module. Can be a value like 915.0, 433.0, etc.
+RADIO_FREQ_MHZ = 915.0
 
-# addresses needs to be in a buffer protocol object (bytearray)
-address = b"1Node"
+### Define Chip Select and Reset pins for the radio module.
+#CS = digitalio.DigitalInOut(board.RFM_CS)
+#RESET = digitalio.DigitalInOut(board.RFM_RST)
 
-# change these (digital output) pins accordingly
-ce = dio.DigitalInOut(board.D4)
-csn = dio.DigitalInOut(board.D5)
+### Initialise RFM69 radio
+#rfm69 = adafruit_rfm69.RFM69(board.SPI(), CS, RESET, RADIO_FREQ_MHZ)
 
-# using board.SPI() automatically selects the MCU's
-# available SPI pins, board.SCK, board.MOSI, board.MISO
-print("Initiating SPI")
-spi = board.SPI()  # init spi bus object
-
-# we'll be using the dynamic payload size feature (enabled by default)
-# initialize the nRF24L01 on the spi bus object
-print("Initiating nrf24 for wireless receiving")
-nrf = RF24(spi, csn, ce)
-
-# set the Power Amplifier level to -12 dBm since this test example is
-# usually run with nRF24L01 transceivers in close proximity
-nrf.pa_level = -12
-
-nrf.open_rx_pipe(0, address)
-nrf.listen = True  # put radio into RX mode and power up
-
-listen = True
-
-start = time.monotonic()
-
-print("Starting listening loop")
-
-while listen:
-    if nrf.update() and nrf.pipe is not None:
-        # print details about the received packet
-        print("{} bytes received on pipe {}".format(nrf.any(), nrf.pipe))
-        # fetch 1 payload from RX FIFO
-        rx = nrf.recv()  # also clears nrf.irq_dr status flag
-        # expecting an int, thus the string format '<i'
-        # the rx[:4] is just in case dynamic payloads were disabled
-        
-        #buffer = struct.unpack("<i", rx[:4])  # [:4] truncates padded 0s
-        buffer = struct.unpack("<q",rx)
-        #################
-        # in struct.pack, "i" uses a 4 byte int
-        # "q" uses an 8 byte int
-        #################
-
-        # print the only item in the resulting tuple from
-        # using `struct.unpack()`
-        print("Received: {}, Raw: {}".format(buffer[0], rx))
-        start = time.monotonic()  
-    time.sleep(0.25)
-    #print(".",end='')      
-
-    # recommended behavior is to keep in TX mode while idle
-nrf.listen = False  # put the nRF24L01 is in TX mode
+### Wait to receive packets.
+print("Waiting for packets...")
+while True:
+    # Look for a new packet - wait up to 5 seconds:
+    packet = rfm69.receive(timeout=5.0)
+    # If no packet was received during the timeout then None is returned.
+    if packet is not None:
+        print("Received a packet!")
+        # If the received packet is b'button'...
+        packet_str = packet.decode("utf-8")
+        print(packet_str)
+        if packet_str == "false-idol":
+            # ...cycle the NeoPixel LED color through the color_values list.
+            print("FALSE IDOL")
