@@ -52,6 +52,7 @@ Linear actuator
 - https://www.amazon.com/dp/B085N49S79?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
 - Video about relay wiring for actutator: https://www.youtube.com/watch?v=hgSht52Mk54
 - See pictures for wiring example and will want to set jumpers to LOW trigger input
+- ![wiring](/assets/another-relay-wiring-diagram.png)
 
 Basic arrangement / wiring diagrams
 - Pi Pico #1 -> the main altar and pedestal
