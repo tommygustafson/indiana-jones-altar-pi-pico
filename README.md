@@ -36,8 +36,22 @@ PN532:
     - 3.3V
     - GND
 
-Information / guides on using the RFM69 radio:
+RFM69 packet radio:
 - https://learn.adafruit.com/feather-rp2040-rfm69/rfm69-radio-demo
+
+Linear actuator
+- Plan for either 6" or 12" stroke
+- Typically is powered 12v
+- Typically direction of movement (extend, retract) is controlled by a signal to the two wires.  This is best controlled with a 2 channel relay, see next section
+- current one being used is 6" stroke
+  - https://www.amazon.com/gp/product/B07RXQGJLT/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1
+
+2 channel relay with 3.3v input logic / trigger
+- Need to make sure it is triggered by a 3.3v input
+- The option I am using allows for both 3.3v or 5v based on jumper setting for each relay
+- https://www.amazon.com/dp/B085N49S79?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
+- Video about relay wiring for actutator: https://www.youtube.com/watch?v=hgSht52Mk54
+- See pictures for wiring example and will want to set jumpers to LOW trigger input
 
 Basic arrangement / wiring diagrams
 - Pi Pico #1 -> the main altar and pedestal
