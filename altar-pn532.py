@@ -30,11 +30,9 @@ import board
 import busio
 from digitalio import DigitalInOut, Direction, Pull
 import time
-import struct
-from datetime import datetime
-#from circuitpython_nrf24l01.rf24 import RF24
 from adafruit_pn532.spi import PN532_SPI
 import adafruit_rfm69
+from adafruit_datetime import datetime
 
 '''
 ###############################
@@ -48,8 +46,8 @@ Also need to attach on relay, vcc to 5v on Rpi and gnd to ground on Rpi
 
 '''
 
-relay_1 = DigitalInOut(board.D21) #BLUE, IN1
-relay_2 = DigitalInOut(board.D20) #GREEN, IN2
+relay_1 = DigitalInOut(board.GP27) #BLUE, IN1
+relay_2 = DigitalInOut(board.GP26) #GREEN, IN2
 
 relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
@@ -101,11 +99,7 @@ def process_tag(tag_list,uid,prior_tag_str):
     extend_actuator_tag = "56146162137"
     retract_actuator_tag = "24023514149"
 
-    # datetime object containing current date and time
-    now = datetime.now()
-    # dd/mm/YY H:M:S
-    dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
-    print("date and time =", dt_string)
+    print(datetime.now())
 
     tag_str = add_tag_to_list(tag_list,uid)
     print("Processing tag: ", tag_str)
@@ -230,3 +224,4 @@ while True:
     #print("Found card with UID in str:", [str(i) for i in uid])
     prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
     time.sleep(0.5)
+
