@@ -26,15 +26,15 @@ Git push origin main --> pushes changes to GitHub
 Git pull origin main --> pulls / gets / updates files from Github
    
 """
-
 import board
 import busio
 from digitalio import DigitalInOut, Direction, Pull
 import time
 import struct
 from datetime import datetime
-from circuitpython_nrf24l01.rf24 import RF24
+#from circuitpython_nrf24l01.rf24 import RF24
 from adafruit_pn532.spi import PN532_SPI
+import adafruit_rfm69
 
 '''
 ###############################
@@ -148,54 +148,31 @@ def is_actuator_moving():
     else:
         return False
 
-def send_data_nrf(data):
-    #data = 1234
-    #buffer = struct.pack("<i", int(data))
-    buffer = struct.pack("<q", int(data))
-    #################
-    # in struct.pack, "i" uses a 4 byte int
-    # "q" uses an 8 byte int
-    #################
-
-    print("Sending: {} as struct: {}".format(data, buffer))
-    start_timer = time.monotonic() * 1000  # start timer
-    result = nrf.send(buffer)
-    end_timer = time.monotonic() * 1000  # end timer
-    if not result:
-        print("send() failed or timed out")
-    else:
-        print("send() successful")
-        # print timer results despite transmission success
-        print("Transmission took", end_timer - start_timer, "ms")
-
-
+def send_data_rfm69(str_to_send):
+    rfm69.send(bytes(str_to_send, "UTF-8"))
+    
 '''
 #####
 # Set up LED pin
 #####
 '''
-#led = DigitalInOut(board.LED)
-#led.direction = Direction.OUTPUT
+led = DigitalInOut(board.LED)
+led.direction = Direction.OUTPUT
 
 
 '''
 ############################################
 # SPI connection:
 ############################################
-
 Set up SPI connection for the PN532 RFID reader
-
-White = 3.3v
-Black = Ground
-Green / teal = SCK
-Purple = MISO
-Gray = MOSI
-Blue = SCL / Rx / SSEL
-
 '''
+
 print("Starting setup of PN532")
-spi = busio.SPI(board.SCLK, board.MOSI, board.MISO)
-cs_pin = DigitalInOut(board.D5)
+SCK = board.GP18
+MISO = board.GP16
+MOSI = board.GP19
+spi = busio.SPI(SCK, MOSI, MISO)
+cs_pin = DigitalInOut(board.GP17)
 pn532 = PN532_SPI(spi, cs_pin, debug=False)
 
 ic, ver, rev, support = pn532.firmware_version
@@ -208,38 +185,41 @@ pn532.SAM_configuration()
 tag_list = []
 prior_tag_str = ""
 
-'''
-##################
-# Set up nrf
-##################
-'''
-
-'''
-print("Setting up nRF")
-# addresses needs to be in a buffer protocol object (bytearray)
-address = b"1Node"
-ce_nrf_pin = DigitalInOut(board.GP2)
-csn_nrf_pin = DigitalInOut(board.GP3)
-nrf = RF24(spi, csn_nrf_pin, ce_nrf_pin)
-
-nrf.open_tx_pipe(address)  # set address of RX node into a TX pipe
-nrf.listen = False  # ensures the nRF24L01 is in TX mode
-
-print("#######")
-print("Setup of nRF completed")
-print("#######")
-'''
 print("#######")
 print("Setup of PN532 completed")
+print("#######")
+
+'''
+##################
+# Set up RFM69 packet radio
+##################
+'''
+print("Setting up RFM69 packet radio")
+
+# Define radio frequency in MHz. Must match your
+# module. Can be a value like 915.0, 433.0, etc.
+RADIO_FREQ_MHZ = 915.0
+
+'''
+# Define Chip Select and Reset pins for the radio module.
+CS = digitalio.DigitalInOut(board.RFM_CS)
+RESET = digitalio.DigitalInOut(board.RFM_RST)
+
+# Initialise RFM69 radio
+rfm69 = adafruit_rfm69.RFM69(board.SPI(), CS, RESET, RADIO_FREQ_MHZ)
+
+str_to_send = "button"
+send_data_rfm69(str_to_send)
+'''
+
+print("#######")
+print("Setup of RFM69 packet radio completed")
 print("#######")
 
 print("Waiting for RFID/NFC card...")
 while True:
     # Check if a card is available to read
     uid = pn532.read_passive_target(timeout=0.5)
-    #pixels.fill(YELLOW)
-    #pixels.show()
-    #print(".", end="")
     # Try again if no card is available.
     if uid is None:
         prior_tag_str = ""
