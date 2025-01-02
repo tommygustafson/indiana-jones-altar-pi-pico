@@ -12,8 +12,14 @@ from adafruit_datetime import datetime
 '''
 ###############################
 # Set up digital pins for control of relay
-# input 1 = GP27
-# input 2 = GP26
+
+# On Raspberry Pi Pico
+# input 1 = board.GP27
+# input 2 = board.GP26
+
+# On Feather RP2040 with RFM69
+# input 1 = board.D?
+# input 2 = board.D?
 
 Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
 
@@ -131,11 +137,19 @@ Set up SPI connection for the PN532 RFID reader
 '''
 
 print("Starting setup of PN532")
+# Pins on Raspberry Pi Pico
 SCK = board.GP18
 MISO = board.GP16
 MOSI = board.GP19
-spi = busio.SPI(SCK, MOSI, MISO)
 cs_pin = DigitalInOut(board.GP17)
+
+# Pins on Feather RP2040 with RFM69
+#SCK = board.SCK
+#MISO = board.MISO
+#MOSI = board.MOSI
+#cs_pin = DigitalInOut(board.D? or board.RX)
+
+spi = busio.SPI(SCK, MOSI, MISO)
 pn532 = PN532_SPI(spi, cs_pin, debug=False)
 
 ic, ver, rev, support = pn532.firmware_version
