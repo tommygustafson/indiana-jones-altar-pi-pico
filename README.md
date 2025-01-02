@@ -48,7 +48,7 @@ Linear actuator
 
 2 channel relay with 3.3v input logic / trigger
 - Need to make sure it is triggered by a 3.3v input
-- The option I am using allows for both 3.3v or 5v based on jumper setting for each relay
+- The option I am using allows for both 3.3v (LOW jumper setting) or 5v (HIGH jumper setting) based on jumper setting for each relay
 - https://www.amazon.com/dp/B085N49S79?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
 - Video about relay wiring for actutator: https://www.youtube.com/watch?v=hgSht52Mk54
 - See pictures for wiring example and will want to set jumpers to LOW trigger input
