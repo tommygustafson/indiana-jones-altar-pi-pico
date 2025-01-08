@@ -10,6 +10,19 @@ import adafruit_rfm69
 from adafruit_datetime import datetime
 
 '''
+##################################
+# On Feather Prop Maker 2040, to use 5v pin, need to enable
+#####################
+'''
+# enable external power pin
+# provides power to the external components
+external_power = DigitalInOut(board.EXTERNAL_POWER)
+external_power.direction = Direction.OUTPUT
+external_power.value = True
+
+
+
+'''
 ###############################
 # Set up digital pins for control of relay
 
@@ -21,14 +34,18 @@ from adafruit_datetime import datetime
 # input 1 = board.D?
 # input 2 = board.D?
 
+# On feather prop maker RP2040
+# input 1 = board.D4
+# input 2 = board.D5
+
 Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
 
 ###############################
 
 '''
 
-relay_1 = DigitalInOut(board.GP27) #BLUE, IN1
-relay_2 = DigitalInOut(board.GP26) #GREEN, IN2
+relay_1 = DigitalInOut(board.D6) #BLUE, IN1
+relay_2 = DigitalInOut(board.D5) #GREEN, IN2
 
 relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
@@ -138,16 +155,22 @@ Set up SPI connection for the PN532 RFID reader
 
 print("Starting setup of PN532")
 # Pins on Raspberry Pi Pico
-SCK = board.GP18
-MISO = board.GP16
-MOSI = board.GP19
-cs_pin = DigitalInOut(board.GP17)
+#SCK = board.GP18
+#MISO = board.GP16
+#MOSI = board.GP19
+#cs_pin = DigitalInOut(board.GP17)
 
 # Pins on Feather RP2040 with RFM69
 #SCK = board.SCK
 #MISO = board.MISO
 #MOSI = board.MOSI
 #cs_pin = DigitalInOut(board.D? or board.RX)
+
+# Pins on Feather Prop Maker RP2040
+SCK = board.SCK
+MISO = board.MISO
+MOSI = board.MOSI
+cs_pin = DigitalInOut(board.A3)
 
 spi = busio.SPI(SCK, MOSI, MISO)
 pn532 = PN532_SPI(spi, cs_pin, debug=False)
