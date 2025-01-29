@@ -16,10 +16,9 @@ from adafruit_datetime import datetime
 '''
 # enable external power pin
 # provides power to the external components
-external_power = DigitalInOut(board.EXTERNAL_POWER)
-external_power.direction = Direction.OUTPUT
-external_power.value = True
-
+#external_power = DigitalInOut(board.EXTERNAL_POWER)
+#external_power.direction = Direction.OUTPUT
+#external_power.value = True
 
 
 '''
@@ -35,8 +34,14 @@ external_power.value = True
 # input 2 = board.D?
 
 # On feather prop maker RP2040
-# input 1 = board.D4
-# input 2 = board.D5
+# input 1 = board.D5
+# input 2 = board.D6
+
+# Featherwing Relay #1
+# input = board.D11
+
+# Featherwing Relay #2
+# input = board.D10
 
 Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
 
@@ -44,7 +49,7 @@ Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
 
 '''
 
-relay_1 = DigitalInOut(board.D6) #BLUE, IN1
+relay_1 = DigitalInOut(board.D11) #BLUE, IN1
 relay_2 = DigitalInOut(board.D5) #GREEN, IN2
 
 relay_1.direction = Direction.OUTPUT
@@ -142,8 +147,8 @@ def send_data_rfm69(str_to_send):
 # Set up LED pin
 #####
 '''
-led = DigitalInOut(board.LED)
-led.direction = Direction.OUTPUT
+#led = DigitalInOut(board.LED)
+#led.direction = Direction.OUTPUT
 
 
 '''
