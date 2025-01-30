@@ -30,27 +30,26 @@ from adafruit_datetime import datetime
 # input 2 = board.GP26
 
 # On Feather RP2040 with RFM69
-# input 1 = board.D?
-# input 2 = board.D?
+# input 1 = board.D11
+# input 2 = board.D9
 
-# On feather prop maker RP2040
-# input 1 = board.D5
-# input 2 = board.D6
-
-# Featherwing Relay #1
+# Featherwing Relay #1 (on top of Feather)
 # input = board.D11
 
 # Featherwing Relay #2
-# input = board.D10
+# input = board.D9
 
 Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
 
 ###############################
 
+
+# Current setup is with main board being Feather RP2040 with RFM69 and using two Featherwing Relays
+
 '''
 
 relay_1 = DigitalInOut(board.D11) #BLUE, IN1
-relay_2 = DigitalInOut(board.D5) #GREEN, IN2
+relay_2 = DigitalInOut(board.D9) #GREEN, IN2
 
 relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
