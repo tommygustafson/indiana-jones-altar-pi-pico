@@ -48,8 +48,8 @@ Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
 
 '''
 
-relay_1 = DigitalInOut(board.D11) #BLUE, IN1
-relay_2 = DigitalInOut(board.D9) #GREEN, IN2
+relay_1 = DigitalInOut(board.D13) #BLUE, IN1
+relay_2 = DigitalInOut(board.D12) #GREEN, IN2
 
 relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
@@ -168,13 +168,13 @@ print("Starting setup of PN532")
 #SCK = board.SCK
 #MISO = board.MISO
 #MOSI = board.MOSI
-#cs_pin = DigitalInOut(board.D? or board.RX)
+#cs_pin = DigitalInOut(board.D5 or board.RX)
 
 # Pins on Feather Prop Maker RP2040
 SCK = board.SCK
 MISO = board.MISO
 MOSI = board.MOSI
-cs_pin = DigitalInOut(board.A3)
+cs_pin = DigitalInOut(board.RX)
 
 spi = busio.SPI(SCK, MOSI, MISO)
 pn532 = PN532_SPI(spi, cs_pin, debug=False)
