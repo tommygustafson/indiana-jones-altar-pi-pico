@@ -10,18 +10,6 @@ import adafruit_rfm69
 from adafruit_datetime import datetime
 
 '''
-##################################
-# On Feather Prop Maker 2040, to use 5v pin, need to enable
-#####################
-'''
-# enable external power pin
-# provides power to the external components
-#external_power = DigitalInOut(board.EXTERNAL_POWER)
-#external_power.direction = Direction.OUTPUT
-#external_power.value = True
-
-
-'''
 ###############################
 # Set up digital pins for control of relay
 
@@ -33,13 +21,7 @@ from adafruit_datetime import datetime
 # input 1 = board.D6
 # input 2 = board.D9
 
-# Featherwing Relay #1 (on top of Feather)
-# input = board.D11
-
-# Featherwing Relay #2
-# input = board.D9
-
-Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
+Connect on input for relay for Vcc to 3.3v and Gnd to ground on the RP2040
 
 ###############################
 
@@ -198,7 +180,9 @@ print("#######")
 # Set up RFM69 packet radio
 ##################
 '''
+print("#######")
 print("Setting up RFM69 packet radio")
+print("#######")
 
 # Define radio frequency in MHz. Must match your
 # module. Can be a value like 915.0, 433.0, etc.
@@ -234,5 +218,6 @@ while True:
     #print("Found card with UID in str:", [str(i) for i in uid])
     prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
     time.sleep(1)
+
 
 
