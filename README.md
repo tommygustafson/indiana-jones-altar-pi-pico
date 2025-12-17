@@ -56,7 +56,6 @@ Linear actuator
 - See pictures for wiring example and will want to set jumpers to LOW trigger input
 - ![wiring](/assets/relay-linear-actuator-wiring.jpg)
 - ![wiring](/assets/another-relay-wiring-diagram.png)
-- ![wiring](assets/relay-pintout-diagram.jpg)
 
 Basic arrangement / wiring diagrams
 - Pi Pico #1 -> the main altar and pedestal
