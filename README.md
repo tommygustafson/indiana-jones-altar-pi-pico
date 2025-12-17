@@ -10,7 +10,7 @@ The project is designed to run under CircuitPython, but if memory issues, can co
 - In general, we will use Thonny to save files to the Pico and to edit code
 - Guide: https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/0
 
-For editing python code on the Pico, recommend using Thonny or Mu Editor
+For editing python code on the Pico, recommend using Thonny
 - If using CircuitPython, no specific requirements with my preference for Thonny
 - If using Micropython, recommend Thonny
 
@@ -29,10 +29,10 @@ PN532:
   - Wiring for SPI:
     - https://forums.raspberrypi.com/viewtopic.php?t=320933
     - https://learn.adafruit.com/adafruit-pn532-rfid-nfc/python-circuitpython
-    - MOSI = SPI TX (default for SPI0 on Pico is GP19) and is MOSI on red PN532 board
-    - MISO = SPI RX (default for SPI0 on Pico is GP16) and is MISO on red PN532 board
-    - SCK = SPI SCK (default for SPI0 on Pico is GP18) and is SCK on red PN532 board
-    - CSN = SPI CSN (default for SPI0 on Pico is GP17) and is SS on red PN532 board
+    - MOSI = SPI TX (default for SPI0 on Pico is board.MOSI) and is MOSI on red PN532 board
+    - MISO = SPI RX (default for SPI0 on Pico is board.MISO) and is MISO on red PN532 board
+    - SCK = SPI SCK (default for SPI0 on Pico is board.SCK) and is SCK on red PN532 board
+    - CSN = SPI CSN (any digital input pin, currently defaulting to board.D5) and is SS on red PN532 board
     - 3.3V
     - GND
 
@@ -48,8 +48,8 @@ Linear actuator
 
 2 channel relay with 3.3v input logic / trigger
 - Need to make sure it is triggered by a 3.3v input
-- I ended up using two Featherwing Relays from Adafruit to work with the 3.3v login from the Feather board
-- - https://www.adafruit.com/product/3191
+- I used two of these inexpensive 3v single channel relays
+- - https://a.co/d/43FexUP
 - Video about relay wiring for actutator: https://www.youtube.com/watch?v=hgSht52Mk54
 - See pictures for wiring example and will want to set jumpers to LOW trigger input
 - ![wiring](/assets/another-relay-wiring-diagram.png)
