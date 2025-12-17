@@ -32,7 +32,7 @@ PN532:
     - MOSI = SPI TX (default for SPI0 on Pico is board.MOSI) and is MOSI on red PN532 board
     - MISO = SPI RX (default for SPI0 on Pico is board.MISO) and is MISO on red PN532 board
     - SCK = SPI SCK (default for SPI0 on Pico is board.SCK) and is SCK on red PN532 board
-    - CSN = SPI CSN (any digital input pin, currently defaulting to board.D5) and is SS on red PN532 board
+    - CSN = SPI CSN (any digital io pin, currently defaulting to board.D5) and is SS on red PN532 board
     - 3.3V
     - GND
 
