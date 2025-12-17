@@ -1,5 +1,5 @@
 """
-Interface RFid PN-532 Reader with RFM69 packet radio using CircuitPython on Raspberry Pi Pico   
+Interface RFid PN-532 Reader with RFM69 packet radio using CircuitPython on Adafruit Feather RP2040 RPM69   
 """
 import board
 import busio
@@ -29,8 +29,8 @@ from adafruit_datetime import datetime
 # input 1 = board.GP27
 # input 2 = board.GP26
 
-# On Feather RP2040 with RFM69
-# input 1 = board.D11
+# On Feather RP2040 with RFM69 and two single channel relays
+# input 1 = board.D6
 # input 2 = board.D9
 
 # Featherwing Relay #1 (on top of Feather)
@@ -44,12 +44,12 @@ Also need to attach on relay: vcc to 3.3v on Pico and gnd to ground on Pico
 ###############################
 
 
-# Current setup is with main board being Feather RP2040 with RFM69 and using two Featherwing Relays
+# Current setup is with main board being Feather RP2040 with RFM69 and using two single channel relays
 
 '''
 
-relay_1 = DigitalInOut(board.D13) #BLUE, IN1
-relay_2 = DigitalInOut(board.D12) #GREEN, IN2
+relay_1 = DigitalInOut(board.D6) #BLUE, IN1
+relay_2 = DigitalInOut(board.D9) #GREEN, IN2
 
 relay_1.direction = Direction.OUTPUT
 relay_2.direction = Direction.OUTPUT
@@ -174,7 +174,7 @@ print("Starting setup of PN532")
 SCK = board.SCK
 MISO = board.MISO
 MOSI = board.MOSI
-cs_pin = DigitalInOut(board.RX)
+cs_pin = DigitalInOut(board.D5)
 
 spi = busio.SPI(SCK, MOSI, MISO)
 pn532 = PN532_SPI(spi, cs_pin, debug=False)
@@ -234,4 +234,5 @@ while True:
     #print("Found card with UID in str:", [str(i) for i in uid])
     prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
     time.sleep(1)
+
 
