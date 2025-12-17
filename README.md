@@ -47,6 +47,8 @@ Linear actuator
   - https://www.amazon.com/gp/product/B07RXQGJLT/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1
 
 2 channel relay with 3.3v input logic / trigger
+- Useful general guide about relays:
+- - https://core-electronics.com.au/guides/getting-started-with-relays-examples-with-raspberry-pi-pico/
 - Need to make sure it is triggered by a 3.3v input
 - I used two of these inexpensive 3v single channel relays
 - - https://a.co/d/43FexUP
