@@ -5,7 +5,7 @@ Plan for all devices to run on Raspberry Pi Pico (RP2040) based boards with RFM6
 Adafruit Feather RP2040 RFM69 Packet Radio (868 or 915 MHz) and allows for STEMMA QT expansion
 - https://www.adafruit.com/product/5712
 - Guide: https://learn.adafruit.com/feather-rp2040-rfm69
-- ![wiring](/assets/adafruit_products_Adafruit_Feather_RP2040_RFM69_Pinout_2.png)
+- ![wiring](/assets/Adafruit_Feather_RP2040_RFM69_Pinout.png)
 
 The project is designed to run under CircuitPython, but if memory issues, can consider using MicroPython with Thonny and tips below:
 - In general, we will use Thonny to save files to the Pico and to edit code
