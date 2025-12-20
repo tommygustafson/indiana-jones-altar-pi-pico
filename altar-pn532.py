@@ -9,6 +9,9 @@ from adafruit_pn532.spi import PN532_SPI
 import adafruit_rfm69
 from adafruit_datetime import datetime
 
+import pwmio
+import asyncio
+
 '''
 ###############################
 # Set up digital pins for control of relay
@@ -24,8 +27,6 @@ from adafruit_datetime import datetime
 Connect on input for relay for Vcc to 3.3v and Gnd to ground on the RP2040
 
 ###############################
-
-
 # Current setup is with main board being Feather RP2040 with RFM69 and using two single channel relays
 
 '''
@@ -46,9 +47,70 @@ relay_2.direction = Direction.OUTPUT
 # To pause / stop: relay_1 = True, relay_2 = True
 ##########################
 '''
-
 relay_1.value = True
 relay_2.value = True
+
+####################################
+# Set up output pins for motor controller (L298N) for rumble motor control
+#
+# Two digital outputs:
+# rumble_1 = D10
+# rumble_2 = D11
+#
+# no rumble when rumble_1 = rumble_2 = False
+# yes rumbler with rumble _1 != rumble_2 (i.e. 1 = True, 2 = False)
+#
+# Uses 3rd pin for PWM output
+# Uses pwmio library
+# pwm = D12
+# strenth of rumble is the percentage of 2 ** 16 duty cycle
+# pwm.duty_cycle = max_duty_cycle
+
+print("#################")
+print("setting up PWM for rumble motors")
+print("#################")
+
+max_duty_cycle = (2 ** 16) - 2
+medium_duty_cycle = (2 ** 16) / 2
+low_duty_cycle = (2 ** 16) / 4
+off_duty_cycle = 0
+
+rumble_1 = DigitalInOut(board.D10)
+rumble_2 = DigitalInOut(board.D11)
+pwm = pwmio.PWMOut(board.D12, frequency=50)
+rumble_1.direction = Direction.OUTPUT
+rumble_2.direction = Direction.OUTPUT
+
+# Start with rumble OFF
+rumble_1.value = False
+rumble_2.value = False
+
+def stop_rumble():
+    rumble_1.value = False
+    rumble_2.value = False
+
+def start_rumble(duty_cycle):
+    rumble_1.value = True
+    rumble_2.value = False
+    pwm.duty_cycle = duty_cycle
+
+print("end set up of rumble motors")
+print("#########################\n")
+
+print("##################")
+print("Setting up audio playback")
+'''
+Plan to use the asyncio to play mp3 file
+https://learn.adafruit.com/cooperative-multitasking-in-circuitpython-with-asyncio/overview
+
+Plan to play mp3 via PWM:
+https://learn.adafruit.com/mp3-playback-rp2040
+'''
+
+def play_boulder_crash_mp3():
+    mp3file = "/home/tom/indiana-jones-altar/mp3/trimmed-boulder.mp3"
+
+print("###############")
 
 def add_tag_to_list(tag_list, uid):
     tag_str = ''
@@ -75,8 +137,8 @@ def add_tag_to_list(tag_list, uid):
 
 def process_tag(tag_list,uid,prior_tag_str):
     # TO DO: Make extend and retractor tag as lists to allow multiple tags / objects
-    extend_actuator_tag = "8131164137"
-    retract_actuator_tag = "8018321730"
+    extend_actuator_tag = "51128193182" #round blue tag
+    retract_actuator_tag = "232193167137" #white rectangle
 
     print(datetime.now())
 
@@ -101,11 +163,13 @@ def process_tag(tag_list,uid,prior_tag_str):
 
 def extend_actuator():
     print("Extending actuator")
+    send_data_rfm69("extending")
     relay_1.value = False
     relay_2.value = True
 
 def retract_actuator():
     print("Retracting actuator")
+    send_data_rfm69("retracting")
     relay_1.value = True
     relay_2.value = False
 
@@ -128,8 +192,8 @@ def send_data_rfm69(str_to_send):
 # Set up LED pin
 #####
 '''
-#led = DigitalInOut(board.LED)
-#led.direction = Direction.OUTPUT
+led = DigitalInOut(board.LED)
+led.direction = Direction.OUTPUT
 
 
 '''
@@ -147,16 +211,10 @@ print("Starting setup of PN532")
 #cs_pin = DigitalInOut(board.GP17)
 
 # Pins on Feather RP2040 with RFM69
-#SCK = board.SCK
-#MISO = board.MISO
-#MOSI = board.MOSI
-#cs_pin = DigitalInOut(board.D5 or board.RX)
-
-# Pins on Feather Prop Maker RP2040
 SCK = board.SCK
 MISO = board.MISO
 MOSI = board.MOSI
-cs_pin = DigitalInOut(board.D5)
+cs_pin = DigitalInOut(board.D5) #must be digital IO pin
 
 spi = busio.SPI(SCK, MOSI, MISO)
 pn532 = PN532_SPI(spi, cs_pin, debug=False)
@@ -188,17 +246,19 @@ print("#######")
 # module. Can be a value like 915.0, 433.0, etc.
 RADIO_FREQ_MHZ = 915.0
 
-'''
 # Define Chip Select and Reset pins for the radio module.
-CS = digitalio.DigitalInOut(board.RFM_CS)
-RESET = digitalio.DigitalInOut(board.RFM_RST)
+CS = DigitalInOut(board.RFM_CS)
+RESET = DigitalInOut(board.RFM_RST)
 
 # Initialise RFM69 radio
-rfm69 = adafruit_rfm69.RFM69(board.SPI(), CS, RESET, RADIO_FREQ_MHZ)
+# Need to define different SPI pins for CS and RESET
+# Otherwise, use previously defined spi bus
+rfm69 = adafruit_rfm69.RFM69(spi, CS, RESET, RADIO_FREQ_MHZ)
+rfm69.tx_power = 18
+#str_to_send = "button"
+#rfm69.send(bytes("button", "UTF-8"))
 
-str_to_send = "button"
-send_data_rfm69(str_to_send)
-'''
+
 
 print("#######")
 print("Setup of RFM69 packet radio completed")
@@ -212,12 +272,9 @@ while True:
     if uid is None:
         prior_tag_str = ""
         if is_actuator_moving():
-            stop_actuator()
+            stop_actuator()            
         continue
     #print("Found card with UID:", [hex(i) for i in uid])
     #print("Found card with UID in str:", [str(i) for i in uid])
     prior_tag_str = process_tag(tag_list,uid,prior_tag_str)    
     time.sleep(1)
-
-
-
